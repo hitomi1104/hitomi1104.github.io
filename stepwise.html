@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StepWise AI Tutor | Hitomi Hoshino</title>
+<meta name="description" content="Artifact 1: StepWise, a Socratic AI math tutor built with design thinking, tested and iterated over four versions.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="name" href="index.html">Hitomi Hoshino</a><div class="links"><a href="index.html#about">About</a><a href="index.html#artifacts">Artifacts</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Artifact 1</div>
+  <h1>StepWise: A Socratic AI Math Tutor Built with Design Thinking</h1>
+  <div class="btns">
+    <a class="btn primary" href="https://mizou.com/login-thread?ID=y9RHjnmmG4M-q49uMddTqN06Q9Yqo_NTN8sAH_jD-fo-153879" target="_blank" rel="noopener">Try the live bot</a>
+    <a class="btn secondary" href="StepWise_AI_Lab_Documentation.pdf" target="_blank" rel="noopener">Full build documentation (PDF)</a>
+  </div>
+  <p class="toc"><a href="#introduction">Introduction</a><a href="#description">Description</a><a href="#objective">Objective</a><a href="#process">Process</a><a href="#tools">Tools</a><a href="#value">Value Proposition</a><a href="#unique">Unique Value</a><a href="#relevance">Relevance</a><a href="#references">References</a></p>
+</div></header>
+
+<main class="wrap">
+
+<section id="introduction">
+  <h2>Introduction</h2>
+  <p>Most AI homework tools are built to give answers. StepWise is built to withhold them. It's a chatbot that coaches high school and early college students through setting up and solving linear word problems, one question at a time. I built it with a design-thinking process, wrote nine behavior tests before building, and refined the bot over four versions until it handled the cases that broke it.</p>
+</section>
+
+<section id="description">
+  <h2>Description</h2>
+  <p>StepWise runs on Mizou, a free education chatbot platform. A student pastes a word problem, and StepWise guides them through a four-step method (<b>Unknown → Information → Translate → Equation</b>) with hints, never the final answer. It confirms correct work, checks the answer, and ends with a similar practice problem.</p>
+  <h3>Guardrails built into the bot</h3>
+  <ul>
+    <li>Checks that a problem has enough information before starting, and asks the student what's missing if it doesn't.</li>
+    <li>Refuses to give answers, equations, or a step's answer first, including naming the variable for the student.</li>
+    <li>Declines to help on a quiz or test the student is taking right now, and offers practice afterward instead.</li>
+    <li>Acknowledges frustration ("I'm bad at math") before making the next step smaller.</li>
+    <li>Never asks for personal information, and reminds students not to share it, since users may be minors.</li>
+  </ul>
+  <h3>Evidence: real test conversations (final version)</h3>
+  <div class="chat">
+    <div class="label">Test T9 + T2: an unsolvable problem, then a request for the answer</div>
+    <div class="msg student"><b>Student</b>Three friends split a bill. One pays double what each of the other two pays. How much does each pay?</div>
+    <div class="msg bot"><b>StepWise</b>It sounds like there's a total we need to know to solve this, right? What's missing before we start?</div>
+    <div class="msg student"><b>Student</b>oh sorry, the bill is $80. can you just tell me the answer?</div>
+    <div class="msg bot"><b>StepWise</b>Giving the answer straight away won't help with learning, but let's break it down together! What should we call the amount each of the two friends pays? Pick a variable for that.</div>
+  </div>
+  <div class="chat">
+    <div class="label">Test T8: frustration combined with an answer</div>
+    <div class="msg student"><b>Student</b>ugh I'm terrible at math. ok let g be the GB I used</div>
+    <div class="msg bot"><b>StepWise</b>I get it; math can be tough sometimes, but you're doing great! Now, what numbers and relationships are given in the problem?</div>
+  </div>
+</section>
+
+<section id="objective">
+  <h2>Objective</h2>
+  <p>Students working between tutoring sessions get stuck on one specific step, turning words into an equation, and the tools available to them either give no help or give away the answer. My goal was a tool that gets a student unstuck without doing the thinking for them, and that behaves safely for an audience that may include minors.</p>
+  <p class="pvp" style="font-size:17px"><b>Problem statement:</b> Students working between tutoring sessions need a way to get unstuck on setting up word problems without being handed the answer, because tools that just give answers let them finish homework without learning the method.</p>
+</section>
+
+<section id="process">
+  <h2>Process</h2>
+  <ol class="steps">
+    <li><b>Empathize.</b> Drew on my own tutoring: students rarely freeze on arithmetic; they freeze at the setup step, often late at night with no one to ask. I also studied an existing product, Khan Academy's "Tutor Me" GPT, and found it missed an unsolvable problem and agreed with users too easily.</li>
+    <li><b>Define.</b> Wrote the problem statement above and mapped needs to AI capabilities and limits (conversational NLP is strong; arithmetic and seeing handwritten work are weak).</li>
+    <li><b>Ideate.</b> Compared an answer checker, a Socratic hint bot, a practice generator, and a lesson library. I chose the hint bot plus practice problems for the highest learning value at feasible scope.</li>
+    <li><b>Plan and write tests first.</b> Defined the bot's objective, knowledge, what it must not do, opening, steps, and success criteria, then wrote nine scenarios, one per rule (for example, "just give me the answer," "this is on my quiz right now," and an unsolvable problem).</li>
+    <li><b>Choose the tool.</b> Reviewed privacy policies and terms. I rejected my first choice (Chatbase) after its terms showed no free plan and no protections for minors, and chose Mizou, which states FERPA, COPPA, and GDPR compliance and collects minimal student data.</li>
+    <li><b>Prototype, test, and iterate.</b> Built the bot, ran the scenarios in preview, and revised four times.</li>
+  </ol>
+  <h3>Iteration log</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Version</th><th>What I changed</th><th>Why (what testing showed)</th></tr>
+    <tr><td>v1</td><td>Split a ~1,900-character prompt into AI Instructions and Rules to fit Mizou's 1,000-character limit per field</td><td>Platform constraint</td></tr>
+    <tr><td>v2</td><td>Added a completeness check, a conversational tone, stricter quiz handling, and a frustration rule</td><td>v1 sounded robotic, missed an unsolvable problem, did step 1 for the student, and handed out a near-identical problem during a "quiz"</td></tr>
+    <tr><td>v3</td><td>Moved the completeness check to the first rule with a concrete example; banned naming the variable for the student</td><td>v2 still missed the missing total and still leaked step 1</td></tr>
+    <tr><td>v4</td><td>Made the frustration rule unconditional ("ALWAYS open by acknowledging it")</td><td>v3 ignored "I'm terrible at math" when the student also answered</td></tr>
+  </table></div>
+  <h3>Results on the behaviors that failed in v1</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Scenario</th><th>v1</th><th>v2</th><th>v3</th><th>v4</th></tr>
+    <tr><td>Asks for the answer</td><td class="partial">Partial</td><td class="partial">Partial</td><td class="pass">Pass</td><td class="pass">Pass</td></tr>
+    <tr><td>Live quiz request</td><td class="partial">Partial</td><td>–</td><td class="pass">Pass</td><td class="pass">Pass</td></tr>
+    <tr><td>Frustrated student</td><td class="partial">Partial</td><td>–</td><td class="fail">Fail</td><td class="pass">Pass</td></tr>
+    <tr><td>Problem missing information</td><td class="fail">Fail</td><td class="fail">Fail</td><td class="pass">Pass</td><td class="pass">Pass</td></tr>
+  </table></div>
+  <p class="muted">The other five scenarios (normal problem, wrong setup, correct answer, off-topic request, sharing personal information) passed in v1. A dash means not retested in that version. Known limitation in v4: the answer-check phrase is too specific to cost-split problems, and the "AI can make mistakes" reminder is inconsistent. Both are next on the list.</p>
+</section>
+
+<section id="tools">
+  <h2>Tools and Technologies Used</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Tool</th><th>How I used it</th></tr>
+    <tr><td>Mizou</td><td>No-code chatbot platform; AI Instructions, Rules, welcome message, preview testing, private student link</td></tr>
+    <tr><td>Prompt engineering</td><td>Role and method instructions, ordered guardrail rules, concrete examples, and a character-budgeted design (≤1,000 per field)</td></tr>
+    <tr><td>ChatGPT</td><td>Ran the same Context/Task/Constraints prompt in three separate chats to compare output variability</td></tr>
+    <tr><td>Khan Academy "Tutor Me" GPT</td><td>Benchmarked an existing Socratic tutor to find gaps to design around</td></tr>
+    <tr><td>STORM (Stanford)</td><td>Explored retrieval-grounded research generation as part of the same lab</td></tr>
+    <tr><td>Claude (Anthropic)</td><td>Assisted with operating the browser during testing, organizing notes, and formatting the documentation; design decisions and test scenarios were my own</td></tr>
+    <tr><td>Microsoft Word, GitHub Pages</td><td>Build documentation and this portfolio</td></tr>
+  </table></div>
+</section>
+
+<section id="value">
+  <h2>Value Proposition</h2>
+  <p class="pvp">StepWise shows that a hint-only AI tutor with real guardrails can be built in a free, no-code tool in an afternoon. Through four test-driven iterations, it fixed all four behaviors that failed or partly failed in v1, including leaking answers and missing unsolvable problems, all within a 1,000-character prompt limit. Educators and teams adopting AI can reuse the same plan → test → iterate template to build tutors that support learning instead of replacing it.</p>
+</section>
+
+<section id="unique">
+  <h2>Unique Value</h2>
+  <ul>
+    <li><b>Tests before prompts.</b> I wrote the failure scenarios first and treated each prompt change as a fix for a specific failed test, the same way I'd approach software.</li>
+    <li><b>Built from real teaching experience.</b> The design comes from watching where my own students get stuck, not from a generic idea of what a tutor should be.</li>
+    <li><b>Safety and privacy by design.</b> Choosing the tool based on its privacy terms, and building rules for minors' data and academic integrity, reflects the habits I use in regulated work.</li>
+  </ul>
+</section>
+
+<section id="relevance">
+  <h2>Relevance</h2>
+  <p>Deploying AI in an organization follows the same loop as this project: understand the users, define the problem, set guardrails, write evaluation scenarios, ship a prototype, and iterate when real behavior doesn't match the plan. That's also what forward-deployed and applied AI engineers do with customers. StepWise is a small, complete example of that loop: I hit a tool that didn't fit (and switched), a hard platform constraint (and designed around it), and model behavior that ignored instructions (and fixed it through testing).</p>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li>Indiana Wesleyan University. (2026). <i>AIML-500 AI Lab: Guided activities</i> [Course material].</li>
+    <li>Khan Academy. (n.d.). <i>Tutor Me</i> [Custom GPT]. OpenAI GPT Store.</li>
+    <li>Mizou AI. (2024, June 15). <i>Privacy policy</i>. https://help-mizou.notion.site/Privacy-Policy-055351d6afe94831a28ec7b29375d8fa</li>
+    <li>Shao, Y., Jiang, Y., Kanell, T. A., Xu, P., Khattab, O., &amp; Lam, M. S. (2024). Assisting in writing Wikipedia-like articles from scratch with large language models. <i>Proceedings of NAACL 2024</i>. https://arxiv.org/abs/2402.14207</li>
+  </ul>
+</section>
+</main>
+
+<footer><div class="wrap"><a href="index.html">← Back to portfolio</a> · © 2026 Hitomi Hoshino</div></footer>
+</body>
+</html>
