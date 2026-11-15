@@ -62,7 +62,7 @@
 <section id="process">
   <h2>Process</h2>
   <ol class="steps">
-    <li><b>Empathize.</b> Drew on my own tutoring: students rarely freeze on arithmetic; they freeze at the setup step, often late at night with no one to ask. I also studied an existing product, Khan Academy's "Tutor Me" GPT, and found it missed an unsolvable problem and agreed with users too easily.</li>
+    <li><b>Empathize.</b> Focused on a well-known pain point in math learning: students often understand the arithmetic but freeze at the setup step, turning words into an equation, usually when no teacher is available. I also studied an existing product, Khan Academy's "Tutor Me" GPT, and found it missed an unsolvable problem and agreed with users too easily.</li>
     <li><b>Define.</b> Wrote the problem statement above and mapped needs to AI capabilities and limits (conversational NLP is strong; arithmetic and seeing handwritten work are weak).</li>
     <li><b>Ideate.</b> Compared an answer checker, a Socratic hint bot, a practice generator, and a lesson library. I chose the hint bot plus practice problems for the highest learning value at feasible scope.</li>
     <li><b>Plan and write tests first.</b> Defined the bot's objective, knowledge, what it must not do, opening, steps, and success criteria, then wrote nine scenarios, one per rule (for example, "just give me the answer," "this is on my quiz right now," and an unsolvable problem).</li>
@@ -111,7 +111,7 @@
   <h2>Unique Value</h2>
   <ul>
     <li><b>Tests before prompts.</b> I wrote the failure scenarios first and treated each prompt change as a fix for a specific failed test, the same way I'd approach software.</li>
-    <li><b>Built from real teaching experience.</b> The design comes from watching where my own students get stuck, not from a generic idea of what a tutor should be.</li>
+    <li><b>Designed around one specific failure point.</b> Instead of a general homework helper, StepWise targets the exact step where students get stuck (setting up the equation) and refuses to skip it for them.</li>
     <li><b>Safety and privacy by design.</b> Choosing the tool based on its privacy terms, and building rules for minors' data and academic integrity, reflects the habits I use in regulated work.</li>
   </ul>
 </section>

@@ -46,3 +46,4 @@ th{background:#f3f5f9;font-weight:600}
 pre{background:#f3f5f9;border:1px solid var(--line);border-radius:10px;padding:14px;white-space:pre-wrap;font-size:13.5px;line-height:1.5}
 footer{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 40px;color:var(--muted);font-size:14px}
 @media (max-width:640px){h1{font-size:34px}nav .links a{margin-left:14px}.msg{max-width:100%}header.hero{padding:48px 0 28px}}
+#references li{overflow-wrap:anywhere}

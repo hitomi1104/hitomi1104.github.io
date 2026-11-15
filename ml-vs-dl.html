@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML vs. Deep Learning Decision Guide | Hitomi Hoshino</title>
+<meta name="description" content="Artifact 2: a practical guide for choosing between classic machine learning and deep learning, with two real-world case studies and a six-question checklist.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="name" href="index.html">Hitomi Hoshino</a><div class="links"><a href="index.html#about">About</a><a href="index.html#artifacts">Artifacts</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Artifact 2</div>
+  <h1>Choosing Between Machine Learning and Deep Learning: A Practical Decision Guide</h1>
+  <div class="btns">
+    <a class="btn primary" href="ML_vs_DL_Decision_Guide.pdf" target="_blank" rel="noopener">Download the guide (PDF, 2 pages)</a>
+  </div>
+  <p class="toc"><a href="#introduction">Introduction</a><a href="#description">Description</a><a href="#objective">Objective</a><a href="#process">Process</a><a href="#tools">Tools</a><a href="#value">Value Proposition</a><a href="#unique">Unique Value</a><a href="#relevance">Relevance</a><a href="#references">References</a></p>
+</div></header>
+
+<main class="wrap">
+
+<section id="introduction">
+  <h2>Introduction</h2>
+  <p>One of the most common early mistakes in an AI project is reaching for deep learning because it's newer, when a simpler model would be cheaper, faster, and easier to explain, or the reverse: forcing a classic model onto data it can't handle. This guide gives teams a quick, evidence-based way to make that call before they spend money on data, GPUs, or the wrong vendor.</p>
+</section>
+
+<section id="description">
+  <h2>Description</h2>
+  <p>The guide is a two-page reference with three parts:</p>
+  <ul>
+    <li><b>The core difference:</b> a side-by-side comparison of classic ML and deep learning (who defines features, data needs, compute, explainability, and common algorithms).</li>
+    <li><b>A six-question decision checklist</b> covering data type, whether features can be named, data volume, explainability, compute budget, and the cost of an error.</li>
+    <li><b>Two real-world case studies</b> run through the checklist: Apache SpamAssassin, where classic ML fits, and IDx-DR, the first FDA-authorized autonomous AI diagnostic, where deep learning fits.</li>
+  </ul>
+  <h3>Preview: the checklist applied</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Question</th><th>Spam filtering</th><th>Retinal screening</th></tr>
+    <tr><td>Is the input raw media?</td><td>No, text reduced to signals</td><td>Yes, images</td></tr>
+    <tr><td>Can experts name the features?</td><td>Yes</td><td>Not reliably</td></tr>
+    <tr><td>Labeled data available</td><td>Modest, site-specific</td><td>Large, expert-graded</td></tr>
+    <tr><td>Explainability</td><td>Built in (lists which tests fired)</td><td>Designed around clinical lesions</td></tr>
+    <tr><td>Cost of an error</td><td>Moderate (missed email)</td><td>High (vision loss)</td></tr>
+    <tr><td><b>Verdict</b></td><td class="pass">Classic ML</td><td class="pass">Deep learning</td></tr>
+  </table></div>
+</section>
+
+<section id="objective">
+  <h2>Objective</h2>
+  <p>I wanted to turn a course comparison of machine learning and deep learning into something a decision-maker can actually use. Managers and project leads often have to approve an AI approach without a technical background. The guide gives them the right questions to ask, and gives engineers a shared vocabulary for explaining their recommendation.</p>
+</section>
+
+<section id="process">
+  <h2>Process</h2>
+  <ol class="steps">
+    <li><b>Started from a course report.</b> For AIML-500, I wrote a report comparing a machine learning example (spam detection) with a deep learning example (image recognition), each tied to a real-world application.</li>
+    <li><b>Chose verifiable, real examples.</b> I picked SpamAssassin because its scoring and Bayesian classifier are publicly documented, and IDx-DR because its FDA authorization and trial results are published. I checked facts such as trial size, sensitivity, and specificity against the primary sources.</li>
+    <li><b>Identified the decision logic.</b> Across both cases, the same factors decided the right approach: data type, whether features can be named, data volume, explainability, compute, and the cost of an error. I turned these into the six-question checklist.</li>
+    <li><b>Revised for a new audience.</b> I cut the academic structure, led with a one-sentence rule of thumb, replaced long paragraphs with comparison tables, and kept the whole guide to two pages so it's usable in a meeting.</li>
+    <li><b>Tested the checklist on both cases.</b> I confirmed that running each case study through the checklist produced the right verdict, and added a rule of thumb: start with the simplest model that meets the requirement.</li>
+  </ol>
+</section>
+
+<section id="tools">
+  <h2>Tools and Technologies Used</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Tool</th><th>How I used it</th></tr>
+    <tr><td>Primary sources</td><td>Peer-reviewed trial results (npj Digital Medicine), the University of Iowa announcement, and Apache SpamAssassin documentation</td></tr>
+    <tr><td>Microsoft Word</td><td>Original course report</td></tr>
+    <tr><td>HTML/CSS</td><td>Designed the guide layout and exported it to PDF</td></tr>
+    <tr><td>Claude (Anthropic)</td><td>Assisted with source lookup, drafting, and layout; I selected the examples, verified the facts, and decided the guide's structure</td></tr>
+    <tr><td>GitHub Pages</td><td>Hosts this portfolio</td></tr>
+  </table></div>
+</section>
+
+<section id="value">
+  <h2>Value Proposition</h2>
+  <p class="pvp">This guide helps teams pick the right AI approach in minutes instead of weeks of trial and error. By asking six concrete questions before building, a team can avoid overspending on deep learning where a simple, explainable model would work, or underinvesting where only deep learning can reach the accuracy the problem demands.</p>
+</section>
+
+<section id="unique">
+  <h2>Unique Value</h2>
+  <ul>
+    <li><b>Grounded in real deployments,</b> not textbook toy examples: one open-source system in daily use, and one FDA-authorized medical device with published trial results.</li>
+    <li><b>Built from practice.</b> I've built feature-engineered models such as XGBoost for demand forecasting and worked with unstructured regulatory documents like FDA drug labels, so the trade-offs in this guide are ones I've had to weigh myself.</li>
+    <li><b>Written for both audiences.</b> It works for a non-technical decision-maker and for an engineer explaining a recommendation, which is the bridge I aim to be on AI projects.</li>
+  </ul>
+</section>
+
+<section id="relevance">
+  <h2>Relevance</h2>
+  <p>Choosing the approach is one of the earliest and most expensive decisions in any AI project. In applied and forward-deployed engineering roles, engineers routinely have to explain to customers why a simpler model is the better choice, or why a harder problem needs deep learning. This guide captures that conversation in a reusable form, and it reflects a principle I follow in regulated work: use the simplest system that meets the requirement, and be able to explain why.</p>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li>Abràmoff, M. D., Lavin, P. T., Birch, M., Shah, N., &amp; Folk, J. C. (2018). Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices. <i>npj Digital Medicine, 1</i>, 39. https://doi.org/10.1038/s41746-018-0040-6</li>
+    <li>Abràmoff, M. D., Lou, Y., Erginay, A., Clarida, W., Amelon, R., Folk, J. C., &amp; Niemeijer, M. (2016). Improved automated detection of diabetic retinopathy on a publicly available dataset through integration of deep learning. <i>Investigative Ophthalmology &amp; Visual Science, 57</i>(13), 5200–5206. https://doi.org/10.1167/iovs.16-19964</li>
+    <li>Apache SpamAssassin. (n.d.). <i>How are the scores assigned?</i> Apache SpamAssassin Wiki.</li>
+    <li>Apache SpamAssassin. (n.d.). <i>Mail::SpamAssassin::Plugin::Bayes</i> [Documentation]. https://spamassassin.apache.org/full/3.3.x/doc/Mail_SpamAssassin_Plugin_Bayes.txt</li>
+    <li>University of Iowa Carver College of Medicine. (2018, August 28). <i>Study shows AI can deliver specialty-level diagnosis in primary care setting.</i> https://medicine.uiowa.edu/node/1025</li>
+  </ul>
+</section>
+</main>
+
+<footer><div class="wrap"><a href="index.html">← Back to portfolio</a> · © 2026 Hitomi Hoshino</div></footer>
+</body>
+</html>
