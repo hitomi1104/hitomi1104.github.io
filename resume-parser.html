@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume Parser: Hybrid LLM + OCR Extraction | Hitomi Hoshino</title>
+<meta name="description" content="Featured project: a FastAPI resume parser that combines OpenAI GPT and LandingAI OCR to turn PDF, Word, image, and LinkedIn resumes into structured data with confidence scores.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="name" href="index.html">Hitomi Hoshino</a><div class="links"><a href="index.html#about">About</a><a href="index.html#artifacts">Artifacts</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Featured Project</div>
+  <h1>Resume Parser: Turning Any Resume Format into Structured, Scored Data</h1>
+  <div class="btns">
+    <a class="btn primary" href="#how">See how it works</a>
+    <span class="btn secondary" style="cursor:default">Code available on request</span>
+  </div>
+  <p class="toc"><a href="#introduction">Introduction</a><a href="#description">Description</a><a href="#objective">Objective</a><a href="#process">Process</a><a href="#tools">Tools</a><a href="#value">Value Proposition</a><a href="#unique">Unique Value</a><a href="#relevance">Relevance</a><a href="#references">References</a></p>
+</div></header>
+
+<main class="wrap">
+
+<section id="introduction">
+  <h2>Introduction</h2>
+  <p>Recruiters and HR systems receive resumes in every format: designed PDFs, Word files, scanned pages, phone photos, and LinkedIn profiles. Most parsers handle one format well and quietly fail on the rest, and when they fail, they rarely say which fields they guessed. I built this resume parser to handle all of these formats through one API and to report how confident it is in every field it extracts.</p>
+</section>
+
+<section id="description">
+  <h2>Description</h2>
+  <p>The Resume Parser is a working proof-of-concept API built with FastAPI. It accepts a resume in any common format, sends it to the right extraction engine, and returns structured JSON with ten fields (name, email, phone, LinkedIn, GitHub, location, summary, skills, education, and work experience). Each field comes with its own confidence score, plus an overall score for the whole resume.</p>
+
+  <h3 id="how">How it works</h3>
+  <div class="flow">
+    <div class="node"><b>1. Input</b>PDF, DOCX, PNG/JPG, or LinkedIn URL</div><div class="arrow">&rarr;</div>
+    <div class="node"><b>2. Route</b>PyMuPDF / python-docx for text, LandingAI for images, Selenium for LinkedIn</div><div class="arrow">&rarr;</div>
+    <div class="node"><b>3. Clean</b>Normalize line breaks, bullets, and spacing</div><div class="arrow">&rarr;</div>
+    <div class="node"><b>4. Extract</b>GPT returns each field with a value and a confidence</div><div class="arrow">&rarr;</div>
+    <div class="node"><b>5. Score</b>Field confidences averaged into an overall score</div>
+  </div>
+
+  <h3>API endpoints</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Method</th><th>Endpoint</th><th>What it does</th></tr>
+    <tr><td>POST</td><td><code>/parse</code></td><td>Upload a PDF or DOCX resume</td></tr>
+    <tr><td>POST</td><td><code>/parse/Linkedin_url</code></td><td>Scrape and parse a LinkedIn profile</td></tr>
+    <tr><td>POST</td><td><code>/parse/images</code></td><td>Upload one or more resume images for OCR</td></tr>
+    <tr><td>GET</td><td><code>/</code></td><td>Health check</td></tr>
+  </table></div>
+
+  <h3>Response shape</h3>
+<pre><code>{
+  "Full Name":       { "value": "...", "confidence": 0.98 },
+  "Email":           { "value": "...", "confidence": 0.97 },
+  "Skills":          { "value": ["...", "..."], "confidence": 0.85 },
+  "Work Experience": { "value": [ ... ], "confidence": 0.80 },
+  ...
+  "overall_confidence": 0.9
+}</code></pre>
+  <p class="muted">Illustrative structure. The scores shown are placeholders, not measured results.</p>
+</section>
+
+<section id="objective">
+  <h2>Objective</h2>
+  <p>My goal was to test whether a hybrid approach, using a text extractor or an OCR model depending on the input and then an LLM for field extraction, could handle every common resume format through a single API. I also wanted the system to be honest about uncertainty, so a reviewer knows which fields to check instead of trusting every output equally.</p>
+</section>
+
+<section id="process">
+  <h2>Process</h2>
+  <ol class="steps">
+    <li><b>Built an extractor for each format.</b> PyMuPDF reads PDFs, python-docx reads Word files, LandingAI's OCR reads images, and headless Selenium scrapes LinkedIn profiles.</li>
+    <li><b>Cleaned the text before sending it to the model.</b> PDF extraction often splits one sentence across several lines. A preprocessing step joins broken lines, unifies bullet characters, and removes extra spaces so the model sees readable text.</li>
+    <li><b>Designed the extraction prompt.</b> The prompt asks GPT-3.5 for ten fields, each as a value plus a confidence score, at a low temperature (0.2) for more consistent output.</li>
+    <li><b>Made failures visible.</b> Unsupported file types return a clear error, and if the model's reply isn't valid JSON, the API returns the raw output instead of a half-filled result.</li>
+    <li><b>Tested and documented limits.</b> I tested each endpoint through FastAPI's built-in Swagger page with sample resumes and recorded the failure modes I found (see below).</li>
+    <li><b>Revised it for this portfolio.</b> I turned the project's technical notes into a case study for a broader audience, with a workflow diagram, a plain-language explanation, and an honest list of known issues.</li>
+  </ol>
+
+  <h3>Known issues and what I learned</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Issue</th><th>Why it happens</th><th>What it taught me</th></tr>
+    <tr><td><span class="fail">Hallucinated fields</span></td><td>With sparse or unstructured input, the LLM sometimes fills gaps, such as adding roles that don't exist.</td><td>A model's own confidence score isn't enough. Outputs need to be checked against the source text.</td></tr>
+    <tr><td><span class="partial">LinkedIn scraping</span></td><td>Bot protection, dynamic pages, and privacy settings cause incomplete or failed scrapes.</td><td>Scraping is fragile. A production version needs a fallback path.</td></tr>
+    <tr><td><span class="partial">Image-only OCR route</span></td><td>The OCR endpoint needs a valid key and accepts image files only.</td><td>Routing by file type has to be explicit and validated up front.</td></tr>
+  </table></div>
+</section>
+
+<section id="tools">
+  <h2>Tools and Technologies Used</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Tool</th><th>How I used it</th></tr>
+    <tr><td>Python + FastAPI</td><td>API framework and endpoints, with Swagger UI for testing</td></tr>
+    <tr><td>OpenAI GPT-3.5</td><td>Extracts structured fields and confidence scores from resume text</td></tr>
+    <tr><td>LandingAI Vision Agent</td><td>OCR for scanned or photographed resumes</td></tr>
+    <tr><td>PyMuPDF, python-docx</td><td>Text extraction from PDF and Word files</td></tr>
+    <tr><td>Selenium (headless Chrome)</td><td>Scrapes LinkedIn profile pages</td></tr>
+    <tr><td>GitHub</td><td>Version control for the project and hosting for this portfolio</td></tr>
+  </table></div>
+</section>
+
+<section id="value">
+  <h2>Value Proposition</h2>
+  <p class="pvp">The Resume Parser saves recruiters and HR teams from retyping resume data by hand, whatever format a resume arrives in, and shows them exactly which fields to double-check. Instead of trusting a black box, reviewers get structured data with a confidence score on every field.</p>
+</section>
+
+<section id="unique">
+  <h2>Unique Value</h2>
+  <ul>
+    <li><b>One API for every format.</b> Text files, images, and LinkedIn URLs each go to the engine best suited to them instead of forcing everything through one model.</li>
+    <li><b>Confidence on every field.</b> Reviewers can focus on the low-confidence fields instead of rechecking everything.</li>
+    <li><b>Honest about its limits.</b> Known failure modes, such as LLM hallucination and scraping blocks, are documented rather than hidden, which is what a real deployment needs.</li>
+  </ul>
+</section>
+
+<section id="relevance">
+  <h2>Relevance</h2>
+  <p>Turning unstructured documents into reliable, structured data is one of the most common ways organizations use AI today, in hiring, healthcare, finance, and regulatory work. This project shows that I can combine LLMs with OCR and traditional extraction tools, design for uncertainty, and evaluate a system's weaknesses honestly. These are the same skills I use in my work on a federal healthcare regulatory program and the skills applied and forward-deployed AI engineering roles call for.</p>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li>FastAPI. (n.d.). <i>FastAPI documentation.</i> https://fastapi.tiangolo.com/</li>
+    <li>LandingAI. (n.d.). <i>LandingAI documentation.</i> https://docs.landing.ai/</li>
+    <li>OpenAI. (n.d.). <i>OpenAI API documentation.</i> https://platform.openai.com/docs</li>
+    <li>PyMuPDF. (n.d.). <i>PyMuPDF documentation.</i> https://pymupdf.readthedocs.io/</li>
+    <li>python-docx. (n.d.). <i>python-docx documentation.</i> https://python-docx.readthedocs.io/</li>
+    <li>Selenium. (n.d.). <i>Selenium documentation.</i> https://www.selenium.dev/documentation/</li>
+  </ul>
+</section>
+</main>
+
+<footer><div class="wrap"><a href="index.html">← Back to portfolio</a> · © 2026 Hitomi Hoshino</div></footer>
+</body>
+</html>
