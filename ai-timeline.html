@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Turing to Transformers: A Visual History of AI | Hitomi Hoshino</title>
+<meta name="description" content="Artifact 3: a researched visual timeline of artificial intelligence from 1943 to 2025, with lessons for teams planning AI projects today.">
+<link rel="stylesheet" href="style.css">
+<style>.timeline-img{width:100%;max-width:720px;display:block;margin:16px auto;border:1px solid var(--line);border-radius:12px}.scroll-box{max-height:720px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:#fff}.scroll-box img{border:0;margin:0 auto}</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="name" href="index.html">Hitomi Hoshino</a><div class="links"><a href="index.html#about">About</a><a href="index.html#artifacts">Artifacts</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Artifact 3</div>
+  <h1>From Turing to Transformers: A Visual History of AI and What It Teaches Teams Today</h1>
+  <div class="btns">
+    <a class="btn primary" href="AI_History_Timeline.pdf" target="_blank" rel="noopener">Download the timeline (PDF)</a>
+    <a class="btn secondary" href="#timeline">View it here</a>
+  </div>
+  <p class="toc"><a href="#introduction">Introduction</a><a href="#description">Description</a><a href="#objective">Objective</a><a href="#process">Process</a><a href="#tools">Tools</a><a href="#value">Value Proposition</a><a href="#unique">Unique Value</a><a href="#relevance">Relevance</a><a href="#references">References</a></p>
+</div></header>
+
+<main class="wrap">
+
+<section id="introduction">
+  <h2>Introduction</h2>
+  <p>AI has been "about to change everything" several times since the 1950s, and twice the hype collapsed into an "AI winter." Knowing why those booms and busts happened helps teams set realistic expectations for AI projects today. This artifact is a researched, one-page visual timeline of AI from 1943 to 2025, paired with practical lessons for people planning or approving AI work now.</p>
+</section>
+
+<section id="description">
+  <h2>Description</h2>
+  <p>The timeline covers 28 milestones across five eras, from the first artificial neuron to today's AI agents:</p>
+  <div class="table-wrap"><table>
+    <tr><th>Era</th><th>Years</th><th>Example milestones</th></tr>
+    <tr><td>Foundations</td><td>1940s–1960s</td><td>McCulloch–Pitts neuron, Turing's test, Dartmouth Workshop, the Perceptron, ELIZA</td></tr>
+    <tr><td>Expert systems</td><td>1980s</td><td>XCON, Japan's Fifth Generation Project, backpropagation</td></tr>
+    <tr><td>Statistical machine learning</td><td>1990s–2000s</td><td>Deep Blue, NVIDIA CUDA, ImageNet, Watson</td></tr>
+    <tr><td>Deep learning + cloud</td><td>2010–2019</td><td>AlexNet, GANs, AlphaGo, the Transformer, BERT and GPT-1</td></tr>
+    <tr><td>Generative AI</td><td>2020–today</td><td>GPT-3, AlphaFold 2, ChatGPT, the frontier model race, AI agents</td></tr>
+  </table></div>
+  <p>It also marks both AI winters with their causes and impact, includes a compute panel (AI training compute doubled about every 20 months before 2010 and about every 6 months since), lists today's major players, and ends with one takeaway: every AI boom needed better algorithms, enough data, and enough compute at the same time.</p>
+
+  <h3 id="timeline">The timeline</h3>
+  <p class="muted">Scroll inside the frame, or download the PDF for full resolution.</p>
+  <div class="scroll-box"><img class="timeline-img" src="ai-timeline.jpg" alt="Vertical timeline titled From Turing to Transformers showing AI milestones from 1943 to 2025 across five color-coded eras, two AI winters, a compute panel, and major players."></div>
+</section>
+
+<section id="lessons">
+  <h2>Added for This Portfolio: Lessons for Today's AI Projects</h2>
+  <p>The original timeline explains what happened. For this portfolio, I added what it means for a team deciding whether and how to use AI today.</p>
+  <ol class="steps">
+    <li><b>Check all three ingredients.</b> Backpropagation existed in 1986, but it didn't take off until ImageNet's data and NVIDIA's GPUs arrived in 2012. Before starting a project, ask whether you have the right method, enough quality data, and the compute to run it.</li>
+    <li><b>Watch for promises that outrun the evidence.</b> Both AI winters began when expectations got ahead of what the technology could deliver. Set scoped, measurable goals instead of broad claims.</li>
+    <li><b>Plan for maintenance.</b> Expert systems failed partly because their rules were expensive to keep up to date. Any AI system needs an owner and a plan for updates after launch.</li>
+    <li><b>Expect change to keep speeding up.</b> With compute doubling about every six months, the best tool today may not be the best next year. Design systems so the model can be swapped out.</li>
+  </ol>
+</section>
+
+<section id="objective">
+  <h2>Objective</h2>
+  <p>My goal was to make AI's history quick to understand and useful for decisions. Most histories of AI are long articles or textbook chapters. I wanted a single visual a busy manager, student, or new team member could scan in a few minutes and come away knowing how we got here and why some AI efforts succeed while others stall.</p>
+</section>
+
+<section id="process">
+  <h2>Process</h2>
+  <ol class="steps">
+    <li><b>Researched the history.</b> For an AIML-500 discussion, I studied an IEEE Computer Society article on the evolution of AI and Our World in Data's history of AI, then checked details against additional sources, including research on compute trends.</li>
+    <li><b>Organized by era and cause.</b> I grouped milestones into five eras and focused on what changed in each one (new algorithms, new data, or new hardware) rather than just listing dates.</li>
+    <li><b>Designed the visual.</b> I built an alternating vertical timeline with color-coded eras, tags for hardware and cloud milestones, highlighted AI winter panels, and a compute summary. I also recreated it in Lucidchart.</li>
+    <li><b>Revised for a portfolio audience.</b> I added the "Lessons for Today's AI Projects" section so the artifact goes beyond history and helps readers make decisions, and I added a summary table so visitors can see the scope before opening the full timeline.</li>
+  </ol>
+</section>
+
+<section id="tools">
+  <h2>Tools and Technologies Used</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Tool</th><th>How I used it</th></tr>
+    <tr><td>IEEE Computer Society, Our World in Data, arXiv</td><td>Primary research sources</td></tr>
+    <tr><td>HTML/CSS</td><td>Designed the timeline layout and exported it to PDF and PNG</td></tr>
+    <tr><td>Lucidchart</td><td>Built an editable diagram version of the timeline</td></tr>
+    <tr><td>Claude (Anthropic)</td><td>Assisted with research and design; I chose the milestones, checked the facts, and wrote the takeaway</td></tr>
+    <tr><td>GitHub Pages</td><td>Hosts this portfolio</td></tr>
+  </table></div>
+</section>
+
+<section id="value">
+  <h2>Value Proposition</h2>
+  <p class="pvp">This timeline gives anyone on an AI project a shared, five-minute grounding in how AI got here, and turns that history into practical checks (method, data, compute, maintenance) that help teams avoid repeating the mistakes behind past AI winters.</p>
+</section>
+
+<section id="unique">
+  <h2>Unique Value</h2>
+  <ul>
+    <li><b>Causes, not just dates.</b> Each era shows what actually changed, so readers see why progress happened, not only when.</li>
+    <li><b>Hardware and cloud included.</b> Most AI histories focus on algorithms. This one also tracks transistors, GPUs, CUDA, and cloud computing, which explain why progress sped up after 2010.</li>
+    <li><b>Connected to practice.</b> The added lessons come from what I see in my own work integrating systems: data, infrastructure, and maintenance matter as much as the model.</li>
+  </ul>
+</section>
+
+<section id="relevance">
+  <h2>Relevance</h2>
+  <p>Organizations are investing heavily in AI right now, and many decision-makers are being asked to approve projects without the context to judge them. In applied and forward-deployed engineering roles, part of the job is setting realistic expectations with customers. This timeline shows that I can research a broad topic, turn it into a clear visual, and connect it to the questions teams face today.</p>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li>Bhat, A. K. (2025). <i>The evolution of AI: From foundations to future prospects.</i> IEEE Computer Society.</li>
+    <li>Roser, M. (2022). <i>The brief history of artificial intelligence: The world has changed fast – what might be next?</i> Our World in Data. https://ourworldindata.org/brief-history-of-ai</li>
+    <li>Russell, S., &amp; Norvig, P. (2020). <i>Artificial intelligence: A modern approach</i> (4th ed.). Pearson.</li>
+    <li>Sevilla, J., Heim, L., Ho, A., Besiroglu, T., Hobbhahn, M., &amp; Villalobos, P. (2022). Compute trends across three eras of machine learning. <i>arXiv.</i> https://arxiv.org/abs/2202.05924</li>
+  </ul>
+</section>
+</main>
+
+<footer><div class="wrap"><a href="index.html">← Back to portfolio</a> · © 2026 Hitomi Hoshino</div></footer>
+</body>
+</html>
